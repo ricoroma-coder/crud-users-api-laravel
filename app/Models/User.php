@@ -10,35 +10,33 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
+        'id',
         'name',
-        'email',
-        'password',
+        'address',
+        'city',
+        'state',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    public $error = null;
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public $timestamps = false;
+
+    public function setValues($values)
+    {
+        foreach ($values as $key => $value)
+        {
+            if (!in_array($key, $this->getFillable()) && $this->error === null)
+                $this->error = new ApiMessage(400, "Attribute {$key} is not expected.");
+
+            $this->setAttribute($key, $value);
+        }
+    }
+
+    public function getError()
+    {
+        return $this->error;
+    }
 }
