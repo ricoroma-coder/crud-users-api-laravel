@@ -24,5 +24,8 @@ Route::prefix('form')
             Route::post('/store/{id}', Array(UserController::class, 'store'))
                 ->middleware('route.validation.update')
                 ->name('updateUser');
+            Route::get('/find/{id}', Array(UserController::class, 'find'))
+                ->middleware('route.validation.find')
+                ->name('findUser');
         }
     );

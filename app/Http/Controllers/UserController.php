@@ -45,4 +45,23 @@ class UserController extends Controller
 
         return $response->throwMessage();
     }
+
+    public function find(Request $request, $id)
+    {
+        if (!isset($id) || $id <= 0)
+        {
+            $response = new ApiMessage(400, 'Parameter id must be valid');
+            return $response->throwMessage();
+        }
+
+        $obj = User::query()->find($id);
+
+        return response()->json([
+            'id' => $obj->getAttribute('id'),
+            'name' => $obj->getAttribute('name'),
+            'address' => $obj->getAttribute('address'),
+            'city' => $obj->getAttribute('city'),
+            'state' => $obj->getAttribute('state'),
+        ]);
+    }
 }

@@ -65,5 +65,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'route.validation.store' => \App\Http\Middleware\ValidateUserStoreRoute::class,
         'route.validation.update' => \App\Http\Middleware\ValidateUserUpdateRoute::class,
+        'route.validation.find' => \App\Http\Middleware\ValidateUserFindRoute::class,
     ];
 }

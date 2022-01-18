@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
-class ValidateUserUpdateRoute
+class ValidateUserFindRoute
 {
     /**
      * Handle an incoming request.
@@ -19,14 +19,8 @@ class ValidateUserUpdateRoute
      */
     public function handle(Request $request, Closure $next)
     {
-        $values = array_merge(['id' => $request->id], $request->all());
-
-        $validator = Validator::make($values, [
-            'id' => ['required'],
-            'name' => ['nullable', Rule::unique('users')->ignore($values['id'])],
-            'address' => ['nullable'],
-            'city' => ['nullable'],
-            'state' => ['nullable'],
+        $validator = Validator::make(['id' => $request->id], [
+            'id' => ['required']
         ]);
 
         if ($validator->fails())
