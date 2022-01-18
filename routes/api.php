@@ -21,5 +21,8 @@ Route::prefix('form')
             Route::post('/store', Array(UserController::class, 'store'))
                 ->middleware('route.validation.store')
                 ->name('storeUser');
+            Route::post('/store/{id}', Array(UserController::class, 'store'))
+                ->middleware('route.validation.update')
+                ->name('updateUser');
         }
     );

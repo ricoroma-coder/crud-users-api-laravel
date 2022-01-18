@@ -12,8 +12,16 @@ class UserController extends Controller
     {
         $body = $request->all();
 
-        if (isset($body->id))
-            $obj = User::query()->find($body->id);
+        if (isset($request->id))
+        {
+            if ($request->id <= 0)
+            {
+                $response = new ApiMessage(400, 'Parameter id must be valid');
+                return $response->throwMessage();
+            }
+
+            $obj = User::query()->find($request->id);
+        }
         else
             $obj = new User();
 
