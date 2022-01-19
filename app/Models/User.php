@@ -91,7 +91,10 @@ class User extends Authenticatable
         if (!isset($id) || $id <= 0)
         {
             $response = new ApiMessage(400, 'Parameter id must be valid');
-            return $response->throwMessage();
+            return [
+                'success' => $response->success,
+                'message' => $response->message
+            ];
         }
 
         $obj = self::query()->find($id);
@@ -99,7 +102,10 @@ class User extends Authenticatable
         if ($obj === null || !$obj->exists())
         {
             $response = new ApiMessage(404, 'User not found');
-            return $response->throwMessage();
+            return [
+                'success' => $response->success,
+                'message' => $response->message
+            ];
         }
 
         if ($route == 'findUser')
@@ -115,10 +121,16 @@ class User extends Authenticatable
             $searchField = '';
             switch ($route)
             {
-                default:
-
-                    break;
+                case 'findUserStateById':
+                    $searchField = 'state';
+                break;
             }
+
+            $response = [
+                'id' => $obj->getAttribute('id'),
+                'name' => $obj->getAttribute('name'),
+                $searchField => $obj->getAttribute($searchField)
+            ];
         }
 
         return $response;
