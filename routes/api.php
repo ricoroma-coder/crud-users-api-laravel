@@ -43,6 +43,9 @@ Route::prefix('find')
                 ->name('findUserStateById');
             Route::get('/cities', Array(UserController::class, 'find'))
                 ->name('findUserCity');
+            Route::get('/cities/{id}', Array(UserController::class, 'find'))
+                ->middleware('route.validation.find')
+                ->name('findUserCityById');
             Route::get('/addresses', Array(UserController::class, 'find'))
                 ->name('findUserAddress');
         }

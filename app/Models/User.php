@@ -124,6 +124,9 @@ class User extends Authenticatable
                 case 'findUserStateById':
                     $searchField = 'state';
                 break;
+                case 'findUserCityById':
+                    $searchField = 'city';
+                break;
             }
 
             $response = [
