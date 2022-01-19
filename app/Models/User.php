@@ -39,4 +39,82 @@ class User extends Authenticatable
     {
         return $this->error;
     }
+
+    public static function findUser($route, $id = null)
+    {
+        $specialFindRoutes = ['findUserState'];
+        $response = [];
+
+        if (in_array($route, $specialFindRoutes))
+            $response = self::findAll($route);
+        else
+            $response = self::findById($route, $id);
+
+        return $response;
+    }
+
+    public static function findAll($route)
+    {
+        $users = self::all();
+        $response = [];
+        $searchField = '';
+
+        switch ($route)
+        {
+            case 'findUserState':
+                $searchField = 'state';
+                break;
+        }
+
+        foreach ($users as $user)
+        {
+            $response[] = [
+                'id' => $user['id'],
+                'name' => $user['name'],
+                $searchField => $user[$searchField]
+            ];
+        }
+
+        return $response;
+    }
+
+    public static function findById($route, $id)
+    {
+        $response = [];
+
+        if (!isset($id) || $id <= 0)
+        {
+            $response = new ApiMessage(400, 'Parameter id must be valid');
+            return $response->throwMessage();
+        }
+
+        $obj = self::query()->find($id);
+
+        if ($obj === null || !$obj->exists())
+        {
+            $response = new ApiMessage(404, 'User not found');
+            return $response->throwMessage();
+        }
+
+        if ($route == 'findUser')
+            $response = [
+                'id' => $obj->getAttribute('id'),
+                'name' => $obj->getAttribute('name'),
+                'address' => $obj->getAttribute('address'),
+                'city' => $obj->getAttribute('city'),
+                'state' => $obj->getAttribute('state'),
+            ];
+        else
+        {
+            $searchField = '';
+            switch ($route)
+            {
+                default:
+
+                    break;
+            }
+        }
+
+        return $response;
+    }
 }

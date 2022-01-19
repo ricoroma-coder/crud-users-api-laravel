@@ -46,29 +46,9 @@ class UserController extends Controller
         return $response->throwMessage();
     }
 
-    public function find(Request $request, $id)
+    public function find(Request $request, $id = null)
     {
-        if (!isset($id) || $id <= 0)
-        {
-            $response = new ApiMessage(400, 'Parameter id must be valid');
-            return $response->throwMessage();
-        }
-
-        $obj = User::query()->find($id);
-
-        if ($obj === null || !$obj->exists())
-        {
-            $response = new ApiMessage(404, 'User not found');
-            return $response->throwMessage();
-        }
-
-        return response()->json([
-            'id' => $obj->getAttribute('id'),
-            'name' => $obj->getAttribute('name'),
-            'address' => $obj->getAttribute('address'),
-            'city' => $obj->getAttribute('city'),
-            'state' => $obj->getAttribute('state'),
-        ]);
+        return response()->json(User::findUser($request->route()->getName(), $id));
     }
 
     public function delete(Request $request)

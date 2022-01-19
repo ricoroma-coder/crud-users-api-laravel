@@ -32,3 +32,11 @@ Route::prefix('form')
                 ->name('deleteUser');
         }
     );
+
+Route::prefix('find')
+    ->group(
+        function () {
+            Route::get('/states', Array(UserController::class, 'find'))
+                ->name('findUserState');
+        }
+    );
