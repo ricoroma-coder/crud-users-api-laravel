@@ -42,7 +42,7 @@ class User extends Authenticatable
 
     public static function findUser($route, $id = null)
     {
-        $specialFindRoutes = ['findUserState', 'findUserCity'];
+        $specialFindRoutes = ['findUserState', 'findUserCity', 'findUserAddress'];
         $response = [];
 
         if (in_array($route, $specialFindRoutes))
@@ -66,6 +66,9 @@ class User extends Authenticatable
             break;
             case 'findUserCity':
                 $searchField = 'city';
+            break;
+            case 'findUserAddress':
+                $searchField = 'address';
             break;
         }
 

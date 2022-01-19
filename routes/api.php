@@ -40,5 +40,7 @@ Route::prefix('find')
                 ->name('findUserState');
             Route::get('/cities', Array(UserController::class, 'find'))
                 ->name('findUserCity');
+            Route::get('/addresses', Array(UserController::class, 'find'))
+                ->name('findUserAddress');
         }
     );
