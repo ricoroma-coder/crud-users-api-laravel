@@ -27,5 +27,8 @@ Route::prefix('form')
             Route::get('/find/{id}', Array(UserController::class, 'find'))
                 ->middleware('route.validation.find')
                 ->name('findUser');
+            Route::post('/delete', Array(UserController::class, 'delete'))
+                ->middleware('route.validation.delete')
+                ->name('deleteUser');
         }
     );

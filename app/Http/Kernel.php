@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'route.validation.store' => \App\Http\Middleware\ValidateUserStoreRoute::class,
         'route.validation.update' => \App\Http\Middleware\ValidateUserUpdateRoute::class,
         'route.validation.find' => \App\Http\Middleware\ValidateUserFindRoute::class,
+        'route.validation.delete' => \App\Http\Middleware\ValidateUserDeleteRoute::class,
     ];
 }

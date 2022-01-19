@@ -34,7 +34,7 @@ class UserController extends Controller
 
         try
         {
-            $obj->saveOrFail();
+            $obj->save();
         }
         catch(Exception $e)
         {
@@ -56,6 +56,12 @@ class UserController extends Controller
 
         $obj = User::query()->find($id);
 
+        if ($obj === null || !$obj->exists())
+        {
+            $response = new ApiMessage(404, 'User not found');
+            return $response->throwMessage();
+        }
+
         return response()->json([
             'id' => $obj->getAttribute('id'),
             'name' => $obj->getAttribute('name'),
@@ -63,5 +69,38 @@ class UserController extends Controller
             'city' => $obj->getAttribute('city'),
             'state' => $obj->getAttribute('state'),
         ]);
+    }
+
+    public function delete(Request $request)
+    {
+        $id = $request->get('id');
+        if (!isset($id) || empty($id) || $id <= 0)
+        {
+            $response = new ApiMessage(400, 'Parameter id must be valid');
+            return $response->throwMessage();
+        }
+
+        $obj = User::query()->find($id);
+
+        if ($obj === null || !$obj->exists())
+        {
+            $response = new ApiMessage(404, 'User not found');
+            return $response->throwMessage();
+        }
+
+        $response = new ApiMessage(200, 'User deleted');
+
+        try
+        {
+            $obj->delete();
+        }
+        catch (Exception $e)
+        {
+            $response->success = false;
+            $response->status = 500;
+            $response->message = 'Something got wrong';
+        }
+
+        return $response->throwMessage();
     }
 }
