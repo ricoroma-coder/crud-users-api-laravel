@@ -28,6 +28,7 @@ class ValidateRouteCalculateTotal
                 $field = 'state';
             break;
             case 'calcTotalByCity':
+            case 'calcTotalByCityData':
                 $field = 'city';
             break;
         }

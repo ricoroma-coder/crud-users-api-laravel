@@ -61,5 +61,8 @@ Route::prefix('find')
             Route::post('/totalByCity', Array(UserController::class, 'calculateTotal'))
                 ->middleware('route.validation.calcTotal')
                 ->name('calcTotalByCity');
+            Route::post('/totalByCity/data', Array(UserController::class, 'calculateTotal'))
+                ->middleware('route.validation.calcTotal')
+                ->name('calcTotalByCityData');
         }
     );

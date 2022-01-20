@@ -99,7 +99,10 @@ class UserController extends Controller
                     $getData = true;
             break;
             case 'calcTotalByCity':
+            case 'calcTotalByCityData':
                 $field = 'city';
+            if ($route == 'calcTotalByCityData')
+                $getData = true;
             break;
         }
 
