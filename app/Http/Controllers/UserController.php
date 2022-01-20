@@ -83,4 +83,28 @@ class UserController extends Controller
 
         return $response->throwMessage();
     }
+
+    public function calculateTotal(Request $request)
+    {
+        $route = $request->route()->getName();
+        $field = '';
+        $getData = false;
+
+        switch ($route)
+        {
+            case 'calcTotalByState':
+                $field = 'state';
+            break;
+        }
+
+        $users = User::all()->where($field, $request->get($field));
+        $response['total'] = count($users);
+
+        if ($getData)
+        {
+            $response['users'] = $users;
+        }
+
+        return response()->json($response);
+    }
 }

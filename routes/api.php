@@ -51,5 +51,9 @@ Route::prefix('find')
             Route::get('/addresses/{id}', Array(UserController::class, 'find'))
                 ->middleware('route.validation.find')
                 ->name('findUserAddressById');
+
+            Route::post('/totalByState', Array(UserController::class, 'calculateTotal'))
+                ->middleware('route.validation.calcTotal')
+                ->name('calcTotalByState');
         }
     );
