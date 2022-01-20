@@ -26,6 +26,9 @@ class ValidateRouteCalculateTotal
             case 'calcTotalByState':
                 $field = 'state';
             break;
+            case 'calcTotalByCity':
+                $field = 'city';
+            break;
         }
 
         $validator = Validator::make($request->all(), [

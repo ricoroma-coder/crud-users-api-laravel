@@ -95,6 +95,9 @@ class UserController extends Controller
             case 'calcTotalByState':
                 $field = 'state';
             break;
+            case 'calcTotalByCity':
+                $field = 'city';
+            break;
         }
 
         $users = User::all()->where($field, $request->get($field));
