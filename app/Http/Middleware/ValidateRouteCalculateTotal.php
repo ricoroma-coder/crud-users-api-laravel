@@ -24,6 +24,7 @@ class ValidateRouteCalculateTotal
         switch ($route)
         {
             case 'calcTotalByState':
+            case 'calcTotalByStateData':
                 $field = 'state';
             break;
             case 'calcTotalByCity':

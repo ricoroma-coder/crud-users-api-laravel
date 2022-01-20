@@ -93,7 +93,10 @@ class UserController extends Controller
         switch ($route)
         {
             case 'calcTotalByState':
+            case 'calcTotalByStateData':
                 $field = 'state';
+                if ($route == 'calcTotalByStateData')
+                    $getData = true;
             break;
             case 'calcTotalByCity':
                 $field = 'city';
@@ -104,9 +107,7 @@ class UserController extends Controller
         $response['total'] = count($users);
 
         if ($getData)
-        {
             $response['users'] = $users;
-        }
 
         return response()->json($response);
     }
